@@ -6,8 +6,8 @@ def call(Map config) {
             DOCKERHUB_CREDENTIALS = credentials("${config.dockerCreds}")
             DOCKERHUB_REPO = "${config.dockerRepo}"
             APP_VERSION = "${config.appVersion}"
-            DOCKER_CMD = "/usr/local/bin/docker"
-            KUBECTL_CMD = "/usr/local/bin/kubectl"
+            // DOCKER_CMD = "/usr/local/bin/docker"
+            // KUBECTL_CMD = "/usr/local/bin/kubectl"
         }
         
         stages {
