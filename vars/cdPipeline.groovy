@@ -2,15 +2,12 @@ def call(Map config) {
     pipeline {
         agent any
 
-        parameters {
-            string(name: 'APP_VERSION', defaultValue: 'latest', description: 'Image version to deploy')
-            string(name: 'GIT_COMMIT', defaultValue: 'unknown', description: 'Git commit hash')
-        }
-
         environment {
             DOCKERHUB_REPO = "${config.dockerRepo}"
-            K8S_TOKEN = credentials("${config.k8sCreds}")
-            K8S_SERVER = "${config.k8sServer}"
+            APP_VERSION    = "${config.appVersion}"
+            GIT_COMMIT     = "${config.gitCommit}"
+            K8S_TOKEN      = credentials("${config.k8sCreds}")
+            K8S_SERVER     = "${config.k8sServer}"
         }
 
         stages {
@@ -41,7 +38,7 @@ def call(Map config) {
 
         post {
             success {
-                echo "🚀 Deployment & Service applied successfully!"
+                echo "🚀 Deployment successful!"
             }
             failure {
                 echo "❌ Deployment failed. Check logs."
