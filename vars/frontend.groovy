@@ -6,7 +6,7 @@ def call(Map config) {
             IMAGE_NAME = "${config.imageName}"
             IMAGE_TAG = "${config.imageTag}"
             DOCKERHUB_CREDENTIALS = credentials("${config.dockerCreds}")
-            DOCKERHUB_REPO = "${config.dockerRepo}"
+            DOCKER_HUB_REPO = "${config.dockerRepo}"
         }
     
         stages {
