@@ -6,6 +6,7 @@ def call(Map config) {
             DOCKERHUB_CREDENTIALS = credentials("${config.dockerCreds}")
             DOCKERHUB_REPO = "${config.dockerRepo}"
             APP_VERSION = "${config.appVersion}"
+            PATH = "${config.appPath}"
         }
         
         stages {
