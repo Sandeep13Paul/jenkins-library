@@ -8,6 +8,7 @@ def call(Map config) {
             GIT_COMMIT     = "${config.gitCommit}"
             K8S_TOKEN      = credentials("${config.k8sCreds}")
             K8S_SERVER     = "${config.k8sServer}"
+            PATH = "/usr/local/bin:${env.PATH}"
         }
 
         stages {
