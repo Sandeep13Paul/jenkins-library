@@ -28,6 +28,31 @@ def call(Map config) {
                     }
                 }
             }
+            
+            stage('Test Docker Agent') {
+                agent {
+                    label 'docker-agent'
+                }
+                steps {
+                    sh '''
+                        echo "🐳 Testing Docker Agent"
+                        echo "Agent Info:"
+                        echo "==========="
+                        hostname
+                        whoami
+                        pwd
+                        echo ""
+                        
+                        echo "Docker Test:"
+                        echo "============"
+                        docker --version
+                        docker run --rm alpine:latest echo "Container test successful!"
+                        
+                        echo "✅ All tests passed!"
+                    '''
+                }
+            }
+
             stage('Checkout from GitHub') {
                 steps {
                     checkout scm
