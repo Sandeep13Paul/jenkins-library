@@ -13,6 +13,21 @@ def call(Map config) {
         }
 
         stages {
+            stage('Test Kubernetes Agent') {
+                agent {
+                    label 'kubernetes-agent'
+                }
+                steps {
+                    container('jnlp') {
+                        sh 'echo "Running in JNLP container"'
+                        sh 'java -version'
+                    }
+                    container('maven') {
+                        sh 'echo "Running in Maven container"'
+                        sh 'mvn --version'
+                    }
+                }
+            }
             stage('Checkout from GitHub') {
                 steps {
                     checkout scm
