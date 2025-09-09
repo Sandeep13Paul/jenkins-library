@@ -18,7 +18,7 @@ def call(Map config) {
                 }
             }
 
-            stage('Deploy to Kubernetes') {
+            stage('Deploy with Helm') {
                 steps {
                     sh """
                         kubectl config set-cluster jenkins-cluster --server=$K8S_SERVER --insecure-skip-tls-verify=true
@@ -26,12 +26,10 @@ def call(Map config) {
                         kubectl config set-context my-context --cluster=jenkins-cluster --user=jenkins
                         kubectl config use-context my-context
 
-                        kubectl apply -f deployment.yaml --validate=false
-                        kubectl apply -f service.yaml --validate=false
-
-                        kubectl rollout history deployment my-app
-                        kubectl set image deployment/my-app my-app-container=$DOCKERHUB_REPO:$APP_VERSION --record
-                        kubectl annotate deployment my-app kubernetes.io/change-cause="Deployed via Jenkins build ${BUILD_NUMBER} (commit: ${GIT_COMMIT})" --overwrite
+                        helm upgrade --install my-app ./my-app-chart \
+                          --set image.repository=$DOCKERHUB_REPO \
+                          --set image.tag=$APP_VERSION \
+                          --set ingress.hosts[0].host=my-app.example.com
                     """
                 }
             }
@@ -39,7 +37,7 @@ def call(Map config) {
 
         post {
             success {
-                echo "Deployment successful!"
+                echo "Deployment successful with Helm + Ingress!"
             }
             failure {
                 echo "Deployment failed. Check logs."
