@@ -17,6 +17,14 @@ def call(Map config) {
                     checkout scm
                 }
             }
+            stage('Install Helm') {
+                steps {
+                    sh """
+                        curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+                    """
+                }
+            }
+
 
             stage('Deploy with Helm') {
                 steps {
