@@ -38,6 +38,13 @@ def call(Map config) {
                           --set image.repository=$DOCKERHUB_REPO \
                           --set image.tag=$APP_VERSION \
                           --set ingress.hosts[0].host=my-app.example.com
+
+                        kubectl set image deployment/my-app my-app-container=${DOCKERHUB_REPO}:${APP_VERSION} --record
+
+                        kubectl annotate deployment my-app kubernetes.io/change-cause="Deployed via Jenkins build ${BUILD_NUMBER} (commit: ${GIT_COMMIT})" --overwrite
+
+                        kubectl rollout history deployment my-app
+
                     """
                 }
             }
