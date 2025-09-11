@@ -41,7 +41,7 @@ def call(Map config) {
                         ./helm upgrade --install my-app ./my-app-chart \
                           --set image.repository=$DOCKERHUB_REPO \
                           --set image.tag=$APP_VERSION \
-                          --set ingress.hosts[0].host=my-app.example.com
+                          --set ingress.hosts[0].host=my-app.35.198.238.24.nip.io
 
                         kubectl set image deployment/my-app-my-app my-app-container=${DOCKERHUB_REPO}:${APP_VERSION} --record
 
