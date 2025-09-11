@@ -24,8 +24,7 @@ def call(Map config) {
                         tar -zxvf helm.tar.gz
                         mv linux-amd64/helm ./helm
                         chmod +x ./helm
-                        export PATH=$WORKSPACE:$PATH
-                        helm version
+                        ./helm version
                     """
                 }
             }
@@ -39,7 +38,7 @@ def call(Map config) {
                         kubectl config set-context my-context --cluster=jenkins-cluster --user=jenkins
                         kubectl config use-context my-context
 
-                        helm upgrade --install my-app ./my-app-chart \
+                        ./helm upgrade --install my-app ./my-app-chart \
                           --set image.repository=$DOCKERHUB_REPO \
                           --set image.tag=$APP_VERSION \
                           --set ingress.hosts[0].host=my-app.example.com
