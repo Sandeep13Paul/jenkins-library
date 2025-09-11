@@ -24,7 +24,8 @@ def call(Map config) {
                         tar -zxvf helm.tar.gz
                         mv linux-amd64/helm ./helm
                         chmod +x ./helm
-                        ./helm version
+                        export PATH=$WORKSPACE:$PATH
+                        helm version
                     """
                 }
             }
