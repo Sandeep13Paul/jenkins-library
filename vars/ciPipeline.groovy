@@ -13,45 +13,45 @@ def call(Map config) {
         }
 
         stages {
-            stage('Test Kubernetes Agent') {
-                agent {
-                    label 'kubernetes-agent'
-                }
-                steps {
-                    container('jnlp') {
-                        sh 'echo "Running in JNLP container"'
-                        sh 'java -version'
-                    }
-                    container('maven') {
-                        sh 'echo "Running in Maven container"'
-                        sh 'mvn --version'
-                    }
-                }
-            }
+            // stage('Test Kubernetes Agent') {
+            //     agent {
+            //         label 'kubernetes-agent'
+            //     }
+            //     steps {
+            //         container('jnlp') {
+            //             sh 'echo "Running in JNLP container"'
+            //             sh 'java -version'
+            //         }
+            //         container('maven') {
+            //             sh 'echo "Running in Maven container"'
+            //             sh 'mvn --version'
+            //         }
+            //     }
+            // }
             
-            stage('Test Docker Agent') {
-                agent {
-                    label 'docker-agent'
-                }
-                steps {
-                    sh '''
-                        echo "🐳 Testing Docker Agent"
-                        echo "Agent Info:"
-                        echo "==========="
-                        hostname
-                        whoami
-                        pwd
-                        echo ""
+            // stage('Test Docker Agent') {
+            //     agent {
+            //         label 'docker-agent'
+            //     }
+            //     steps {
+            //         sh '''
+            //             echo "🐳 Testing Docker Agent"
+            //             echo "Agent Info:"
+            //             echo "==========="
+            //             hostname
+            //             whoami
+            //             pwd
+            //             echo ""
                         
-                        echo "Docker Test:"
-                        echo "============"
-                        docker --version
-                        docker run --rm alpine:latest echo "Container test successful!"
+            //             echo "Docker Test:"
+            //             echo "============"
+            //             docker --version
+            //             docker run --rm alpine:latest echo "Container test successful!"
                         
-                        echo "✅ All tests passed!"
-                    '''
-                }
-            }
+            //             echo "✅ All tests passed!"
+            //         '''
+            //     }
+            // }
 
             stage('Checkout from GitHub') {
                 steps {
