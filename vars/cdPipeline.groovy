@@ -20,7 +20,11 @@ def call(Map config) {
             stage('Install Helm') {
                 steps {
                     sh """
-                        curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+                        curl -fsSL -o helm.tar.gz https://get.helm.sh/helm-v3.18.6-linux-amd64.tar.gz
+                        tar -zxvf helm.tar.gz
+                        mv linux-amd64/helm ./helm
+                        chmod +x ./helm
+                        ./helm version
                     """
                 }
             }
